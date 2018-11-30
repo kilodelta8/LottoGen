@@ -1,0 +1,3 @@
+get each column, minus spaces, into each vector
+.....
+clean up code
