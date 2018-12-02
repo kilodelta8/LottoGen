@@ -11,113 +11,74 @@
 @======================================================================================*/
 //begin you
 #include <iostream>
+#include <iomanip>
 #include <fstream>
+#include <sstream>
 #include <vector>
 #include <string>//<-----?????
 using namespace std;
+
+const int ROW = 52;
+const int COL = 7;
 
 //no, you
 int main(){
 
     //init name for fstream
     ifstream data;
-    //init vector
-    vector<int> first, second, third, fourth, fifth, power, plier;
-    //init BS/Junk variables
-    int tmp, temp1, temp2, counter;
-    int sum1 = 0, sum2 = 0, sum3 = 0, sum4 = 0, sum5 = 0, sumPow = 0, sumPLi = 0;
-    int total1 = 0, total2 = 0, total3 = 0, total4 = 0, total5 = 0, totalPow = 0, totalPli = 0;
-
-
-
-
     //open the file with test data
     data.open("/home/kd8/cpp/LottoGen/testData.txt", ios::in);
+
+    //init array
+    int first[COL][ROW] = {};
+    int totals[COL] = {};
     
+    //init BS/Junk variables
+    int a, b, c, x, y, z, counter;
+    int *p1, *p2;
 
-    //Remove this, for dev purposes
-    cout << "\n";
-
-
-    //error check
-    if (data.is_open()){
-        cout << "Data file is open\n";
-        //get the file count
-        int line_count = 0;
-        string line;/*
-        while(getline(data, line)){
-            cout << "Out from While loop: " << line << endl;
-            line_count += line.length();
-        }*/
-        while(!data.eof())
-        {
-            getline(data,line);
-
-                int numofChars = line.length();
-                for (unsigned int n = 0; n<line.length();n++)
-                { 
-                if (line.at(n) == ' ')
-                {
-                numofChars--;
-                }
-                }
-            line_count += numofChars;
+//==============================================================================================
+    //Test for file open
+    if (!data.is_open()){
+        cout << "File failed to open.  Exiting program...\n";
+        exit(1);
+    }else if (data.is_open()){//<<------<<<<- Add file to 2D array
+        for (int i = 0; i < COL; i++){//<---------ROWS
+            for (int j = 0; j < ROW; j++){//<-----COLS
+                data >> first[i][j];
+            }
         }
-        cout << "Character spaces in file: " << line_count << "\n";
-
-        
-        //add data to each respective vector
-        for (int i = 0; i < 14; i+=6){
-            data >> tmp;
-            first.push_back(tmp);
-            sum1 += first[i];
-        }
-        for (int i = 1; i < 14; i+=6){
-            data >> tmp;
-            second.push_back(tmp);
-            sum2 += second[i];
-        }
+        //close the test data file
+        data.close();
     }
-    else if (!(data.is_open())){
-        cout << "ERROR opening file\n";
-    }
-    //get size of vector
-    temp1 = first.size();
-
     /*
-    //display vector contents
-    for (vector<int>::iterator i = first.begin() ; i != first.end(); i++){
-        cout << *i << "\n";
-    }
-    for (vector<int>::iterator i = second.begin() ; i != second.end(); i++){
-        cout << *i << "\n";
+    //Display contents of array
+    for (int i = 0; i < COL; i++){//<------------ROWS
+        for (int j = 0; j < ROW; j++){//<--------COLS
+            cout << first[i][j] << " ";
+        }
+        cout << "\n";
     }*/
-    //display the sum of first vector and average
-    total1 = sum1 / temp1;
-    total2 = sum2 / temp1;
-    cout << "Sum: " << sum1 << " total " << total1 << "\n";
-    cout << "Sum: " << sum2 << " total " << total2 << "\n";
-    
+//=============================================================================================<<
+//<><><><><><><><><><><><->The above code, I am set on.  Don't delete above this<-><><><><><><><>
+//=============================================================================================<<
 
-
-
-
-    //Remove this, for dev purposes
+    //Sum each column and store in variable
+    for(x = 0; x < COL; ++x){//<-------------------------------ROWS
+        for(y = 0; y < ROW; ++y){//<---------------------------COLS
+            totals[x] = totals[x] + first[x][y];
+        }
+    }
+    //Display the sum of each COL
+    for (int i = 0; i < COL; i ++){
+        cout << "Column " << i << " total is: " << totals[i] << " \n";//<<------<<<<-Needs verified
+    }
+    //Display the average of each COL
+    cout << "Winning numbers are:  ";
+    for (int i = 0; i < COL; i ++){
+        cout << (totals[i] / ROW) << "  ";//<<---------<<<<<- Something is off here
+    }
     cout << "\n";
-
-
-
-    //close the test data file
-    data.close();
-
-    //Clean up, Clean up
-    first.clear();
-    second.clear();
-    third.clear();
-    fourth.clear();
-    fifth.clear();
-    power.clear();
-    plier.clear();
     //So endeth thy joke
 
     return 0;
