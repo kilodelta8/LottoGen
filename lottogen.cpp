@@ -18,8 +18,8 @@
 #include <string>//<-----?????
 using namespace std;
 
-const int ROW = 52;
-const int COL = 7;
+const int ROW = 51;
+const int COL = 6;
 
 //no, you
 int main(){
@@ -30,7 +30,7 @@ int main(){
     data.open("/home/kd8/cpp/LottoGen/testData.txt", ios::in);
 
     //init array
-    int first[COL][ROW] = {};
+    int first[COL][ROW] = {};//[row][col]
     int totals[COL] = {};
     
     //init BS/Junk variables
@@ -77,6 +77,19 @@ int main(){
     cout << "Winning numbers are:  ";
     for (int i = 0; i < COL; i ++){
         cout << (totals[i] / ROW) << "  ";//<<---------<<<<<- Something is off here
+    }
+    cout << "\n";
+
+    //==================================================================================
+    //  TEST OUTPUTS
+    //==================================================================================
+    int jack = 6;
+    for (int i = 0; i < ROW; i++){
+        cout << first[0][i] << " ";
+        if (i == jack){
+            cout << "\n";
+            jack+=7;
+        }
     }
     cout << "\n";
     //So endeth thy joke
