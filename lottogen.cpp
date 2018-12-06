@@ -14,12 +14,10 @@
 #include <iomanip>
 #include <fstream>
 #include <sstream>
-#include <vector>
-#include <string>//<-----?????
 using namespace std;
 
-const int ROW = 51;
-const int COL = 6;
+const int ROW = 52;
+const int COL = 7;
 
 //no, you
 int main(){
@@ -30,7 +28,7 @@ int main(){
     data.open("/home/kd8/cpp/LottoGen/testData.txt", ios::in);
 
     //init array
-    int first[COL][ROW] = {};//[row][col]
+    int first[ROW][COL] = {};//[row][col]
     int totals[COL] = {};
     
     //init BS/Junk variables
@@ -43,18 +41,21 @@ int main(){
         cout << "File failed to open.  Exiting program...\n";
         exit(1);
     }else if (data.is_open()){//<<------<<<<- Add file to 2D array
-        for (int i = 0; i < COL; i++){//<---------ROWS
-            for (int j = 0; j < ROW; j++){//<-----COLS
+        for (int i = 0; i < ROW; i++){//<---------ROWS
+            for (int j = 0; j < COL; j++){//<-----COLS
                 data >> first[i][j];
+                x = j;
             }
+        y = i;
         }
+        //cout << x << " " << y << " \n";//<---how may times i and j stack up
         //close the test data file
         data.close();
     }
     /*
     //Display contents of array
-    for (int i = 0; i < COL; i++){//<------------ROWS
-        for (int j = 0; j < ROW; j++){//<--------COLS
+    for (int i = 0; i < ROW; i++){//<------------ROWS
+        for (int j = 0; j < COL; j++){//<--------COLS
             cout << first[i][j] << " ";
         }
         cout << "\n";
@@ -62,37 +63,43 @@ int main(){
 //=============================================================================================<<
 //<><><><><><><><><><><><->The above code, I am set on.  Don't delete above this<-><><><><><><><>
 //=============================================================================================<<
+    //Outputs each column
+    /*int l = 0;//counts the while loop(per each column)
+    while (l < 7){
+        for(int i=0; i<ROW; i++){    //This loops on the rows.
+	    cout << first[i][l]  << "\n";//Prints column by column
+	    }
+        l++;
 
-    //Sum each column and store in variable
-    for(x = 0; x < COL; ++x){//<-------------------------------ROWS
-        for(y = 0; y < ROW; ++y){//<---------------------------COLS
-            totals[x] = totals[x] + first[x][y];
+    }*/
+
+    //add and averages each column
+    int j = 0, temp = 0;
+    while (j < COL){
+        for (int i = 0; i < ROW; i++){
+            temp = temp + first[i][j];
+            totals[j] = (temp / ROW);
         }
+        j++;
+        temp = 0;
     }
-    //Display the sum of each COL
-    for (int i = 0; i < COL; i ++){
-        cout << "Column " << i << " total is: " << totals[i] << " \n";//<<------<<<<-Needs verified
-    }
-    //Display the average of each COL
-    cout << "Winning numbers are:  ";
-    for (int i = 0; i < COL; i ++){
-        cout << (totals[i] / ROW) << "  ";//<<---------<<<<<- Something is off here
+
+    //print averages in totals[]
+    cout << "\n";
+    cout << "Winning numbers based on the last 180 draws: ";
+    for (int i = 0; i < COL; i++){
+        cout << totals[i] << " ";
     }
     cout << "\n";
+//=============================================================================================<<
+//<><><><><><><><><><><><->The above code, I am set on.  Don't delete above this<-><><><><><><><>
+//=============================================================================================<<
+   
+    //==================================================================================
 
-    //==================================================================================
-    //  TEST OUTPUTS
-    //==================================================================================
-    int jack = 6;
-    for (int i = 0; i < ROW; i++){
-        cout << first[0][i] << " ";
-        if (i == jack){
-            cout << "\n";
-            jack+=7;
-        }
-    }
     cout << "\n";
     //So endeth thy joke
+    
 
     return 0;
 }
