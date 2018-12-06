@@ -16,6 +16,9 @@
 #include <sstream>
 using namespace std;
 
+void menu(void);
+void displayNumbersRead(void);
+
 const int ROW = 52;
 const int COL = 7;
 
@@ -48,21 +51,22 @@ int main(){
             }
         y = i;
         }
-        //cout << x << " " << y << " \n";//<---how may times i and j stack up
-        //close the test data file
         data.close();
     }
-    /*
+
+    
     //Display contents of array
     for (int i = 0; i < ROW; i++){//<------------ROWS
+        cout << "Numbers for week " << i << " ";
         for (int j = 0; j < COL; j++){//<--------COLS
             cout << first[i][j] << " ";
+            if (ROW / 7 == 0){
+                cout << "\n";
+            }
         }
         cout << "\n";
-    }*/
-//=============================================================================================<<
-//<><><><><><><><><><><><->The above code, I am set on.  Don't delete above this<-><><><><><><><>
-//=============================================================================================<<
+    }
+
     //Outputs each column
     /*int l = 0;//counts the while loop(per each column)
     while (l < 7){
@@ -102,4 +106,28 @@ int main(){
     
 
     return 0;
+}
+
+//###########FUNCTIONS###########FUNCTIONS################FUNCTIONS################
+//Displays the main menu
+void menu(void){
+    cout << "##############################################################################\n";
+    cout << "|                                LottoGen v1.0                               |\n";
+    cout << "==============================================================================\n";
+    cout << "|  ";
+}
+
+//Displays the numbers read into the 2d array
+void displayNumbersRead(void){
+    /*cout << "The past winning numbers loaded are: \n";
+    for (int i = 0; i < ROW; i++){//<------------ROWS
+        cout << "Numbers for week " << i << " ";
+        for (int j = 0; j < COL; j++){//<--------COLS
+            cout << first[i][j] << " ";
+            if (ROW / 7 == 0){
+                cout << "\n";
+            }
+        }
+        cout << "\n";
+    }*/
 }
