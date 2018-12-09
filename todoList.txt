@@ -1,5 +1,5 @@
--code for most often drawn
 -start putting "things" in functions
 -dev test cases and implement error checking
---Can all of these "for-loops" essentially be added into one main loop??????
--GUI or TUI
+--Can all of these "for-loops" essentially be added into one main for-loop??????
+-TUI (started)
+-Clean up the code
