@@ -17,32 +17,33 @@
 #include <string>
 using namespace std;
 
+//Constant integer values to array sizes based on 180 day draw (7x52 number table)
 const int ROW = 52;
 const int COL = 7;
 
-char menu(string average, string common);
-void displayNumbersRead(void);
+//Feeble attempt at a pitiful TUI
+void menu(string average, string common);
 
-//no, you
+
+//no, begin you
 int main(){
 
-    //init name for fstream
+    //initialize fstream object
     ifstream data;
     //open the file with test data
     data.open("/home/kd8/cpp/LottoGen/testData.txt", ios::in);
 
     //init array
-    int first[ROW][COL] = {};//[row][col]
-    int totals[COL] = {};
-    int arrayBig[ROW] = {};
-    int arraySmall[COL] = {};
-    int arraySmallTwo[COL] = {};
+    int first[ROW][COL] = {};//[row][col]<----main 2d array
+    int totals[COL] = {};//<------------------array to hold total/ROW of each column
+    int arrayBig[ROW] = {};//<----------------array to hold one column at a time from first[]
+    int arraySmall[COL] = {};//<--------------holds the tally of most common occurred number in a col
+    int arraySmallTwo[COL] = {};//<-----------holds the most common number from each column
     
-    //init BS/Junk variables
-    int a, b, c, x, y, z, counter;
-    int *p1, *p2;
-    int topCount=0, count, topElement;
-    string commonNums = "", averageNums = "";
+    //initialize BS/Junk variables<<-----Need to go through these and remove unused
+    int x, y;//<----not sure what these are for?????
+    int topCount=0, count, topElement;//variables for the most common element algorithm #89
+    string commonNums = "", averageNums = "";//variables to print string in TUI #78, #113, #118
     char ans;
 
 //==============================================================================================
@@ -53,56 +54,28 @@ int main(){
     }else if (data.is_open()){//<<------<<<<- Add file to 2D array
         for (int i = 0; i < ROW; i++){//<---------ROWS
             for (int j = 0; j < COL; j++){//<-----COLS
-                data >> first[i][j];
-                x = j;
+                data >> first[i][j];//<-----------add data to array
+                x = j;//<-------------------------No clue what this is for<<<<<<<<......
             }
-        y = i;
+        y = i;//<---------------------------------No clue what this is for either<<<<<<.....
         }
-        data.close();
+        data.close();//<--------------------------close the data file object
     }
-
-    /*
-    //Display contents of array
-    for (int i = 0; i < ROW; i++){//<------------ROWS
-        cout << "Numbers for week " << (i+1) << " ";
-        for (int j = 0; j < COL; j++){//<--------COLS
-            cout << first[i][j] << " ";
-            if (ROW / 7 == 0){
-                cout << "\n";
-            }
-        }
-        cout << "\n";
-    }*/
-
-    //Outputs each column
-    /*int l = 0;//counts the while loop(per each column)
-    while (l < 7){
-        for(int i=0; i<ROW; i++){    //This loops on the rows.
-	    cout << first[i][l]  << "\n";//Prints column by column
-	    }
-        l++;
-
-    }*/
 
     //add and averages each column
     int j = 0, temp = 0;
-    while (j < COL){
-        for (int i = 0; i < ROW; i++){
-            temp = temp + first[i][j];
-            totals[j] = (temp / ROW);
+    while (j < COL){//<-------------------go through each column
+        for (int i = 0; i < ROW; i++){//<-go through each row down a column
+            temp = temp + first[i][j];//<-add the contents
+            totals[j] = (temp / ROW);//<--calc the average and store in totals[]
         }
-        j++;
-        temp = 0;
+        j++;//<---------------------------increment to next column
+        temp = 0;//<----------------------reset the temporary variable
     }
     
-    //add commonly drawn numbers to string variable
-    for (int i = 0; i < COL; i++){
-        averageNums = averageNums + (to_string(totals[i]) + " ");
-    }
-    
-   //find the most common occurrence of each column
-   //add data from 0th column to array[]
-   int k = 0, tempOne = 0;
+    //find the most common occurrence of each column
+    //add data from 0th column to array[]
+    int k = 0, tempOne = 0;
     while (k < COL){//starting at 0x0, 1x0, 2x0, 3x0, etc  (COL=7/ROW=52)
         for (int i = 0; i < ROW; ++i){//go down column k
             arrayBig[i] = first[i][k];//add column to arrayBig
@@ -130,58 +103,39 @@ int main(){
         topElement = 0;
     }
    
-   //add common numbers to string variable for output
-   for (int i = 0; i < COL; i++){
+    //add commonly drawn numbers to string variable
+    for (int i = 0; i < COL; i++){
+        averageNums = averageNums + (to_string(totals[i]) + " ");
+    }
+    //add common numbers to string variable for output
+    for (int i = 0; i < COL; i++){
        commonNums = commonNums + (to_string(arraySmallTwo[i]) + " ");
-   }
-//=============================================================================================<<
-//<><><><><><><><><><><><->The above code, I am set on.  Don't delete above this<-><><><><><><><>
-//=============================================================================================<<
-  
-//-------------------------loop the main menu/TUI-----------------------------------
-    do{
-        ans = menu(averageNums, commonNums);
-        if (ans != 'Q'){
-            ans = 'Q';
-        }
-    }while(ans != 'Q');
-//==================================================================================
+    }
 
-    cout << "\n";
-    //So endeth thy joke
+    //Display the menu
+    menu(averageNums, commonNums);
     
 
+
+    //So endeth thy joke
     return 0;
 }
 
+
 //###########FUNCTIONS###########FUNCTIONS################FUNCTIONS################
 //Displays the main menu
-char menu(string average, string common){
-    char answer;
+void menu(string average, string common){
+    cout << "\n";
     cout << "##############################################################################\n";
     cout << "|                                LottoGen v1.0                               |\n";
     cout << "==============================================================================\n";
-    cout << "|              Average of wins:  " << average << "" << "                        |\n";
-    cout << "|     Numbers most often drawn:  " << common << "" << "                         |\n";
+    cout << "|                                                                            |\n";
+    cout << "|                      Average of wins:  " << average << "" << "                |\n";
+    cout << "|             Numbers most often drawn:  " << common << "" << "                 |\n";
     cout << "|                                                                            |\n";
     cout << "|                                                                            |\n";
     cout << "==============================================================================\n";
-    cout << "                                  Q to quit                                   \n";
-    cin >> answer;
-    return answer;
+    cout << "                                                                    \n";
+    cout << "\n";
 }
 
-//Displays the numbers read into the 2d array
-void displayNumbersRead(void){
-    /*cout << "The past winning numbers loaded are: \n";
-    for (int i = 0; i < ROW; i++){//<------------ROWS
-        cout << "Numbers for week " << i << " ";
-        for (int j = 0; j < COL; j++){//<--------COLS
-            cout << first[i][j] << " ";
-            if (ROW / 7 == 0){
-                cout << "\n";
-            }
-        }
-        cout << "\n";
-    }*/
-}
