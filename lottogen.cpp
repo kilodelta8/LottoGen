@@ -31,7 +31,7 @@ int main(){
     //initialize fstream object
     ifstream data;
     //open the file with test data
-    data.open("/home/kd8/cpp/LottoGen/testData.txt", ios::in);
+    data.open("/home/kd8/cpp/LottoGen/testData12-25.txt", ios::in);
 
     //init array
     int first[ROW][COL] = {};//[row][col]<----main 2d array
