@@ -1,5 +1,7 @@
--start putting "things" in functions
+-Conv to std::vectors
 -dev test cases and implement error checking
---Can all of these "for-loops" essentially be added into one main for-loop??????
 -TUI (started)
+  -change to GUI???
 -Clean up the code
+-add support for .CSV files
+-change storage files to bin
