@@ -9,6 +9,8 @@
 #include <string>
 using namespace std;
 
+//TODO - 4. build gui
+//TODO - 5. attach processes to labels and buttons
 
 string commonNums = "", averageNums = "";//variables to print string
 
