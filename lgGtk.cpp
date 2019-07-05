@@ -6,6 +6,7 @@
 
 int main(int argc, char *argv[])
 {
+    //TODO - 1. Organzise code so it is manageable and easy to read
     //init gtk
     gtk_init(&argc, &argv);
 

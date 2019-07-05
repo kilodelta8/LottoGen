@@ -1,3 +1,6 @@
+//TODO - 1. break each action down into manageable function calls, then add to lottogen.h
+//TODO - 2. add "other" code to lgGtk.cpp, as the main cpp file
+
 /*=====================================================================================
 @                                     LottoGen v1
 @"LottoGen" is STRICTLY free and for entertainment purposes ONLY!  There is absolutely
