@@ -1,0 +1,1 @@
+g++ -o lg1 lgGtk.cpp lgGtkFuncs.h lgGtkFuncs.cpp `pkg-config --libs --cflags gtk+-2.0`
