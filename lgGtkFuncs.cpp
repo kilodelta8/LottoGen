@@ -6,4 +6,9 @@ void end_program(GtkWidget *wid, gpointer ptr)
 	gtk_main_quit();
 }
 
-//TODO - 1. add all gtk handler functions here, then defs to lgGtkFuncs.h
+//handler to set numbers to window
+void copyText(GtkWidget *wid, gpointer ptr)
+{
+    const char *input = gtk_entry_get_text(GTK_ENTRY(txt));
+    gtk_label_set_text(GTK_LABEL(ptr), input);
+}

@@ -3,6 +3,19 @@
 #include "lgGtkFuncs.h"
 #include "lottogen.h"
 
+#include <iomanip>
+#include <fstream>
+#include <sstream>
+#include <string>
+using namespace std;
+
+
+string commonNums = "", averageNums = "";//variables to print string
+
+/* Constant integer values to array sizes based on 180 day draw (7x52 number table)
+const int ROW = 52;  DECLARED IN lottogen.h
+const int COL = 7;*/
+
 
 int main(int argc, char *argv[])
 {
@@ -10,6 +23,44 @@ int main(int argc, char *argv[])
     //TODO - 2. Add code from lottogen.cpp (i.e. array inits, etc)
     //init gtk
     gtk_init(&argc, &argv);
+
+
+    //-----------------------------------------------------------------
+    //initialize fstream object
+    ifstream data;
+
+    //init array
+    int first[ROW][COL] = {};//[row][col]<----main 2d array
+    int totals[COL] = {};//<------------------array to hold total/ROW of each column
+    int arrayBig[ROW] = {};//<----------------array to hold one column at a time from first[]
+    int arraySmall[COL] = {};//<--------------holds the tally of most common occurred number in a col
+    int arraySmallTwo[COL] = {};//<-----------holds the most common number from each column
+    
+    //initialize BS/Junk variables<<-----Need to go through these and remove unused
+    int x, y;//<----not sure what these are for?????
+    int topCount=0, count, topElement;//variables for the most common element algorithm #89
+    string commonNums = "", averageNums = "";//variables to print string in TUI #78, #113, #118
+    char ans;
+
+    //open the file with test data
+    data.open("/home/kd8/cpp/LottoGen/resources/testData.txt", ios::in);
+    //Test for file open
+    if (!data.is_open())
+    {
+        cout << "File failed to open.  Exiting program...\n";  //TODO - 3. display in label without exit
+        exit(1);
+    }
+    else if (data.is_open())//Add file to 2D array
+    {
+        for (int i = 0; i < ROW; i++)//<---------ROWS
+        {
+            for (int j = 0; j < COL; j++)//<-----COLS
+            {
+                data >> first[i][j];//add data to array
+            }
+        }
+        data.close();//close the data file object
+    }
 
 
     //-----------------------------------------------------------------create widgets
