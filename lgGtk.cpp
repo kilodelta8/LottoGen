@@ -7,9 +7,12 @@
 int main(int argc, char *argv[])
 {
     //TODO - 1. Organzise code so it is manageable and easy to read
+    //TODO - 2. Add code from lottogen.cpp (i.e. array inits, etc)
     //init gtk
     gtk_init(&argc, &argv);
 
+
+    //-----------------------------------------------------------------create widgets
     //create the main window
     GtkWidget *mainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
@@ -24,6 +27,7 @@ int main(int argc, char *argv[])
 
 
 
+    //-----------------------------------------------------------place widgets
     //make a gtk vbox
 	GtkWidget *box = gtk_vbox_new(FALSE, 5);
 
@@ -36,6 +40,7 @@ int main(int argc, char *argv[])
 
 
 
+    //-------------------------------------------------------------------main loop stuff
     //run and show the main window
     gtk_widget_show_all(mainWindow);
 
