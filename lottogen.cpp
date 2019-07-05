@@ -18,7 +18,7 @@
 using namespace std;
 
 //Constant integer values to array sizes based on 180 day draw (7x52 number table)
-const int ROW = 52;
+const int ROW = 965;  //52
 const int COL = 7;
 
 //Feeble attempt at a pitiful TUI
@@ -31,7 +31,7 @@ int main(){
     //initialize fstream object
     ifstream data;
     //open the file with test data
-    data.open("/home/kd8/cpp/LottoGen/testData12-25.txt", ios::in);
+    data.open("/home/kd8/dev/cpp/LottoGen/965draws.txt", ios::in);
 
     //init array
     int first[ROW][COL] = {};//[row][col]<----main 2d array
